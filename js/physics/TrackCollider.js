@@ -1,6 +1,7 @@
 // Порт se.codebrew.gdtr.c.k (TrackPoints) + se.codebrew.gdtr.c.c (TrackCollider).
-// Точки трассы с отбраковкой нестрого возрастающих X, предвычисленные нормали
+// Точки трассы с отбраковкой только полных дубликатов, предвычисленные нормали
 // сегментов и скользящее окно сегментов [e, f) с гистерезисом.
+// Расширение порта: вертикальные сегменты участвуют в столкновениях.
 //
 // Статические поля e/f/g/h оригинала перенесены в поля экземпляра:
 // коллайдер в игре всегда один, а loadLevel() сбрасывает их так же, как <clinit>.
@@ -18,7 +19,10 @@ class TrackPoints {
     this.b = 0;  // count
     for (const p of level.points) {
       const x = p.x, y = p.y;
-      if (this.b !== 0 && this.a[this.b - 1][0] >= x) continue;
+      if (this.b !== 0) {
+        const prev = this.a[this.b - 1];
+        if (prev[0] === x && prev[1] === y) continue;
+      }
       this.a[this.b] = [x, y];
       this.b++;
     }
@@ -57,8 +61,14 @@ export class TrackCollider {
       // нормаль сегмента: normalize(-dy, dx)
       let nx = -dy, ny = dx;
       const len = Math.sqrt(nx * nx + ny * ny);
-      nx = nx / len;
-      ny = ny / len;
+      if (len > 0.0) {
+        nx = nx / len;
+        ny = ny / len;
+      } else {
+        // Замыкающий сегмент может быть нулевым, если последняя точка равна первой.
+        nx = 0.0;
+        ny = 0.0;
+      }
       this.normals[i] = [nx, ny];
     }
     this.e = 0;
@@ -124,6 +134,7 @@ export class TrackCollider {
       const dx = x0 - x1;
       const dy = y0 - y1;
       const lenSq = dx * dx + dy * dy;
+      if (lenSq === 0.0) continue;
       let t = (px - x0) * (-dx) + (py - y0) * (-dy);
       if (Math.abs(lenSq) > 1.0E-5) {
         t /= lenSq;
@@ -147,7 +158,16 @@ export class TrackCollider {
       } else {
         code = 2;
       }
-      if (code === 2 && x0 <= px && px <= x1) {
+      if (code === 2 && x0 === x1) {
+        // У вертикали нельзя вычислить slope. Если частица находится в пределах
+        // сегмента по Y и за его внешней нормалью, она проникла внутрь стены.
+        const minY = Math.min(y0, y1), maxY = Math.max(y0, y1);
+        const inside = nrms[i][0] * (px - x0) + nrms[i][1] * (py - y0);
+        if (py >= minY && py <= maxY && inside < 0.0) {
+          code = 0;
+          outD.x = distSq;
+        }
+      } else if (code === 2 && x0 <= px && px <= x1) {
         const slope = (y1 - y0) / (x1 - x0);
         const lineY = y0 - x0 * slope + slope * px;
         if (lineY > py) {
