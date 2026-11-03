@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<levelset>
+    <level name="Safe Ground" order="5" scheme="Beach" filename="levels/descent.json">
+        <one>00:03:89</one>
+        <two>00:03:10</two>
+        <three>00:02:85</three>
+    </level>
+    <level name="Going Up" order="6" scheme="Beach" filename="levels/goingup.json">
+        <one>00:04:62</one>
+        <two>00:03:69</two>
+        <three>00:03:39</three>
+    </level>
+    <level name="Triumph" order="7" scheme="Beach" filename="levels/Intro.json">
+        <one>00:03:53</one>
+        <two>00:02:82</two>
+        <three>00:02:59</three>
+    </level>
+    <level name="Next Step" order="8" scheme="Green" filename="levels/camel.json">
+        <one>00:04:97</one>
+        <two>00:03:97</two>
+        <three>00:03:64</three>
+    </level>
+    <level name="Beat" order="11" scheme="Green" filename="levels/Beat.json">
+        <one>00:05:67</one>
+        <two>00:04:54</two>
+        <three>00:04:16</three>
+    </level>
+    <level name="Flex" order="12" scheme="Beach" filename="levels/Flex.json">
+        <one>00:04:00</one>
+        <two>00:03:20</two>
+        <three>00:02:95</three>
+    </level>
+    <level name="Rider" order="13" scheme="Green" filename="levels/Minihill.json">
+        <one>00:09:25</one>
+        <two>00:07:38</two>
+        <three>00:06:77</three>
+    </level>
+    <level name="Vantage" order="14" scheme="Dustbowl" filename="levels/Vantage.json">
+        <one>00:06:87</one>
+        <two>00:05:49</two>
+        <three>00:05:04</three>
+    </level>
+    <level name="Sharp Jumps" order="15" scheme="Dustbowl" filename="levels/SharpJumps.json">
+        <one>00:06:08</one>
+        <two>00:04:86</two>
+        <three>00:04:46</three>
+    </level>
+    <level name="Rocket" order="16" scheme="Dustbowl" filename="levels/Rocket.json">
+        <one>00:08:54</one>
+        <two>00:06:83</two>
+        <three>00:06:26</three>
+    </level>
+    <level name="Knievel" order="18" scheme="french" filename="levels/Knievel.json">
+        <one>00:04:34</one>
+        <two>00:03:47</two>
+        <three>00:03:18</three>
+    </level>
+    <level name="Indoor" order="25" scheme="Dustbowl" filename="levels/Indoor.json">
+        <one>00:06:72</one>
+        <two>00:05:38</two>
+        <three>00:04:93</three>
+    </level>
+    <level name="Towers" order="27" scheme="Green" filename="levels/Towers.json">
+        <one>00:13:00</one>
+        <two>00:10:50</two>
+        <three>00:09:50</three>
+    </level>
+    <level name="Faith" order="31" scheme="Green" filename="levels/Faith.json">
+        <one>00:20:00</one>
+        <two>00:09:00</two>
+        <three>00:07:60</three>
+    </level>
+    <level name="Glance" order="32" scheme="Dustbowl" filename="levels/Glance.json">
+        <one>00:23:58</one>
+        <two>00:18:86</two>
+        <three>00:17:29</three>
+    </level>
+    <level name="Pillar" order="40" scheme="Green" filename="levels/Pillar.json">
+        <one>00:10:28</one>
+        <two>00:08:22</two>
+        <three>00:07:57</three>
+    </level>
+    <level name="Egypt" order="55" scheme="Sunny" filename="levels/Egypt.json">
+        <one>00:34:00</one>
+        <two>00:27:00</two>
+        <three>00:24:29</three>
+    </level>
+    <level name="Ranger" order="56" scheme="french" filename="levels/Ranger.json">
+        <one>00:17:34</one>
+        <two>00:13:87</two>
+        <three>00:12:72</three>
+    </level>
+    <level name="Unforgiven" order="57" scheme="french" filename="levels/Unforgiven.json">
+        <one>00:24:65</one>
+        <two>00:19:72</two>
+        <three>00:18:07</three>
+    </level>
+    <level name="Canyon" order="70" scheme="Dustbowl" filename="levels/Canyon.json">
+        <one>01:02:00</one>
+        <two>00:52:00</two>
+        <three>00:42:00</three>
+    </level>
+    <level name="Apex" order="85" scheme="Dustbowl" filename="levels/Apex.json">
+        <one>00:12:00</one>
+        <two>00:09:00</two>
+        <three>00:08:00</three>
+    </level>
+    <level name="Flow" order="92" scheme="french" filename="levels/Flow.json">
+        <one>00:11:12</one>
+        <two>00:08:89</two>
+        <three>00:08:15</three>
+    </level>
+</levelset>
