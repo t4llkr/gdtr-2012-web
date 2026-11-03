@@ -1,7 +1,6 @@
 // Браузерный эквивалент меню ChooseLevel: Credits и Settings.
 
 export const SETTINGS = [
-  { key: 'google_analytics', label: 'Report anonymous statistics to help improve the game', fallback: true },
   { key: 'accel_brake_bottom', label: 'Accelerate/Brake controls at bottom', fallback: false },
   { key: 'pinch_while_play', label: 'Pinch zoom while playing', fallback: false },
 ];

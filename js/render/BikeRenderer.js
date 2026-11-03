@@ -67,7 +67,7 @@ export class BikeRenderer {
   // a(Canvas)
   draw(ctx) {
     if (!this.frozen) this.update();
-    this.path = buildRiderPath(this.rider);
+    this.path = buildRiderPath(this.rider, this.i.corner);
     drawPath(ctx, this.path, this.i);
     const head = this.rider.getHead();
     drawCircle(ctx, head.pos.x, head.pos.y, head.radius, this.h);

@@ -41,7 +41,7 @@ export class Paint {
   setShadowLayer(radius, dx, dy, color) {
     this.shadow = { radius, dx, dy, color };
   }
-  setStrokeCap(c) { this.cap = c; }
+  setStrokeCap(c) { this.cap = String(c).toLowerCase(); }
   setCornerPathEffect(r) { this.corner = r; }
 
   get color() {
@@ -94,10 +94,16 @@ function applyFill(ctx, p) {
 function applyShadow(ctx, p) {
   if (p.shadow && ((p.shadow.color >>> 24) !== 0 || (p.shadow.color & 0xff000000) !== 0)) {
     const c = p.shadow.color >>> 0;
+    const m = ctx.getTransform?.() || { a: 1, b: 0, c: 0, d: 1 };
+    // SkBlurDrawLooper переводит radius в sigma и применяет CTM к размытию
+    // и смещению. Canvas этого не делает: sigma = shadowBlur / 2, а offset
+    // задаётся в экранных пикселях, поэтому преобразуем параметры здесь.
+    const scale = Math.hypot(m.a, m.b);
+    const sigma = p.shadow.radius > 0 ? 0.57735 * p.shadow.radius + 0.5 : 0;
     ctx.shadowColor = `rgba(${(c >> 16) & 255},${(c >> 8) & 255},${c & 255},${((c >>> 24) & 255) / 255})`;
-    ctx.shadowBlur = p.shadow.radius;
-    ctx.shadowOffsetX = p.shadow.dx;
-    ctx.shadowOffsetY = p.shadow.dy;
+    ctx.shadowBlur = 2 * sigma * scale;
+    ctx.shadowOffsetX = m.a * p.shadow.dx + m.c * p.shadow.dy;
+    ctx.shadowOffsetY = m.b * p.shadow.dx + m.d * p.shadow.dy;
   } else {
     ctx.shadowColor = 'rgba(0,0,0,0)';
     ctx.shadowBlur = 0;

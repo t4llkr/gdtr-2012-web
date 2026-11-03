@@ -10,6 +10,7 @@ import { Vec2 } from '../core/Vec2.js';
 import { Particle } from '../physics/Particle.js';
 import { Constraint } from '../physics/Constraint.js';
 import { Body } from '../physics/Body.js';
+import { createCornerPath } from './Paint.js';
 
 // e.b — константа (0, 1)
 const UP = new Vec2(0.0, 1.0);
@@ -126,15 +127,15 @@ export class Rider extends Body {
   }
 }
 
-// Path2D не имеет rewind — пересоздаём снаружи; метод-строитель:
-export function buildRiderPath(rider) {
+// Path2D не имеет rewind — пересоздаём снаружи; CornerPathEffect применяется
+// к геометрии, как в Android, а не только к lineJoin.
+export function buildRiderPath(rider, corner = null) {
+  const points = [rider.pE, rider.pF, rider.pG, rider.pH, rider.pI, rider.pJ]
+    .map(particle => particle.pos);
+  if (corner !== null) return createCornerPath(points, corner);
   const path = new Path2D();
-  path.moveTo(rider.pE.pos.x, rider.pE.pos.y);
-  path.lineTo(rider.pF.pos.x, rider.pF.pos.y);
-  path.lineTo(rider.pG.pos.x, rider.pG.pos.y);
-  path.lineTo(rider.pH.pos.x, rider.pH.pos.y);
-  path.lineTo(rider.pI.pos.x, rider.pI.pos.y);
-  path.lineTo(rider.pJ.pos.x, rider.pJ.pos.y);
+  path.moveTo(points[0].x, points[0].y);
+  for (let i = 1; i < points.length; i++) path.lineTo(points[i].x, points[i].y);
   return path;
 }
 
